@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>濟州小橘本 🍊 5D4N 漫遊手帳</title>
+  <title>濟州旅遊小本本 🍊 放電之旅</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="theme-color" content="#FF9442" />
+  <meta name="theme-color" content="#FF8A3D" />
 
   <style>
     :root {
-      --orange-main: #FF8A3D;
-      --orange-deep: #E66A1F;
-      --orange-soft: #FFF2E8;
-      --orange-border: #FFD2B3;
-      --leaf-green: #588B76;
-      --leaf-soft: #E8F3EE;
-      --paper-bg: #FFFDF9;
-      --paper-card: #FFFFFF;
-      --ink: #3D352E;
-      --ink-sub: #7A6F66;
-      --snack-bg: #FFF8EE;
-      --shadow-book: rgba(186, 110, 56, 0.18);
+      --fairy-orange: #FF7E36;
+      --fairy-cream: #FFF9F2;
+      --fairy-paper: #FFFCF7;
+      --fairy-card: #FFFFFF;
+      --leaf-green: #3E7E43;
+      --leaf-tint: #EAF4EB;
+      --naver-green: #03C75A;
+      --naver-bg: #E8F8EE;
+      --ink: #3B2F2F;
+      --ink-muted: #7D6F69;
+      --border-dash: #E8CFB8;
+      --shadow: rgba(186, 110, 56, 0.22);
     }
 
     * {
@@ -31,13 +31,11 @@
       user-select: none;
       -webkit-user-select: none;
       -webkit-tap-highlight-color: transparent;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Noto Sans TC", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "微軟正黑體", sans-serif;
     }
 
     body {
-      background-color: #F7EFE6;
-      background-image: radial-gradient(#E8DACB 1px, transparent 1px);
-      background-size: 18px 18px;
+      background: radial-gradient(circle at center, #FFF4E5 0%, #F5E5D3 100%);
       color: var(--ink);
       height: 100vh;
       height: 100dvh;
@@ -49,40 +47,52 @@
     }
 
     /* 書本 3D 視角容器 */
-    .book-wrapper {
+    .storybook-wrapper {
       position: relative;
       width: min(92vw, 420px);
-      height: min(84vh, 760px);
+      height: min(85vh, 760px);
       perspective: 1800px;
     }
 
-    .book {
+    .storybook {
       position: relative;
       width: 100%;
       height: 100%;
       transform-style: preserve-3d;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px var(--shadow-book), 0 2px 10px rgba(0,0,0,0.06);
+      border-radius: 26px;
+      box-shadow: 0 24px 50px var(--shadow), 0 4px 15px rgba(0, 0, 0, 0.05);
     }
 
-    /* 單頁結構 */
+    /* 翻頁書葉 */
     .page {
       position: absolute;
       width: 100%;
       height: 100%;
       top: 0;
       right: 0;
-      background-color: var(--paper-bg);
-      border-radius: 12px 20px 20px 12px;
-      border: 2px solid #F0E2D5;
+      background-color: var(--fairy-paper);
+      border-radius: 12px 26px 26px 12px;
+      border: 3px solid #F7DFC7;
       padding: 22px 18px 16px 22px;
       display: flex;
       flex-direction: column;
       transform-origin: left center;
       transform-style: preserve-3d;
-      transition: transform 0.7s cubic-bezier(0.25, 1, 0.35, 1);
-      box-shadow: inset 14px 0 20px -10px rgba(186, 110, 56, 0.08);
+      transition: transform 0.75s cubic-bezier(0.25, 1, 0.35, 1);
+      box-shadow: inset 18px 0 25px -12px rgba(186, 110, 56, 0.12), inset -3px 0 8px rgba(0,0,0,0.02);
       overflow: hidden;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 6px;
+      background: repeating-linear-gradient(to bottom, var(--fairy-orange) 0, var(--fairy-orange) 8px, transparent 8px, transparent 16px);
+      opacity: 0.3;
+      border-radius: 0 26px 26px 0;
     }
 
     .page.flipped {
@@ -90,246 +100,276 @@
       pointer-events: none;
     }
 
-    .page-content {
+    .page-scroll {
       height: 100%;
       overflow-y: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      padding-bottom: 20px;
+      padding-bottom: 24px;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
     }
-    .page-content::-webkit-scrollbar { display: none; }
+    .page-scroll::-webkit-scrollbar { display: none; }
 
-    /* 柑橘封面特殊設計 */
-    .cover {
-      background: linear-gradient(145deg, #FFA05C 0%, #FF7F29 100%);
+    /* 封面 */
+    .cover-page {
+      background: linear-gradient(150deg, #FFA666 0%, #FF7426 100%);
       color: #FFFFFF;
-      border: 3px solid #F36F15;
+      border: 3px solid #E85B07;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       text-align: center;
-      padding: 36px 24px;
-      border-radius: 20px;
+      padding: 34px 22px;
+      border-radius: 26px;
     }
 
-    .cover-icon {
-      font-size: 4rem;
-      animation: float 2.5s ease-in-out infinite;
-      margin-top: 10px;
+    .cover-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.28);
+      padding: 4px 16px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      margin: 0 auto;
+      border: 1px dashed rgba(255,255,255,0.7);
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(4deg); }
+    .cover-illu {
+      font-size: 4.6rem;
+      animation: cuteWiggle 3s ease-in-out infinite;
+      margin: 10px 0;
+    }
+
+    @keyframes cuteWiggle {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-10px) rotate(4deg) scale(1.05); }
     }
 
     .cover-title {
-      font-size: 1.85rem;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      margin-top: 8px;
-      text-shadow: 0 2px 8px rgba(204, 76, 0, 0.25);
+      font-size: 1.95rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-shadow: 0 3px 10px rgba(189, 65, 0, 0.35);
     }
 
-    .cover-subtitle {
-      font-size: 0.88rem;
-      background: rgba(255, 255, 255, 0.25);
-      display: inline-block;
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin: 8px auto 0;
-      letter-spacing: 0.1em;
-      font-weight: 600;
-    }
-
-    .cover-stamp {
+    .cover-card {
       background: #FFFFFF;
       color: var(--ink);
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 14px 16px;
-      margin-top: 24px;
+      margin-top: 20px;
       text-align: left;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       line-height: 1.6;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-      border: 1px dashed var(--orange-main);
+      border: 2px dashed #FFBE8A;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
     }
 
-    .stamp-badge {
-      display: inline-block;
-      background: var(--orange-main);
+    .flight-pill {
+      background: var(--fairy-orange);
       color: #fff;
       font-size: 0.7rem;
-      font-weight: 700;
+      font-weight: 800;
       padding: 2px 8px;
-      border-radius: 10px;
-      margin-bottom: 6px;
+      border-radius: 8px;
+      display: inline-block;
+      margin-bottom: 4px;
     }
 
-    /* 標題與標籤 */
-    .day-badge {
+    /* 章節標籤 */
+    .chapter-tag {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--orange-soft);
-      border: 1px solid var(--orange-border);
-      color: var(--orange-deep);
+      background: #FFF2E6;
+      border: 1px solid #FFCDA6;
+      color: var(--fairy-orange);
       font-size: 0.72rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 12px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 16px;
       margin-bottom: 6px;
     }
 
-    .day-title {
-      font-size: 1.15rem;
+    .chapter-header {
+      font-size: 1.12rem;
       font-weight: 800;
-      color: var(--ink);
       line-height: 1.35;
+      color: var(--ink);
       margin-bottom: 12px;
     }
 
-    .hotel-pill {
-      background: var(--leaf-soft);
-      border: 1px solid #CDE2D8;
+    .hotel-banner {
+      background: var(--leaf-tint);
+      border: 1.5px solid #C4DFC7;
       color: var(--leaf-green);
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      padding: 6px 10px;
-      border-radius: 10px;
+      padding: 7px 12px;
+      border-radius: 12px;
       margin-bottom: 14px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 6px;
     }
 
-    /* 可愛時間軸卡片 */
-    .schedule-stack {
+    /* 時間軸項目卡片 */
+    .timeline-stack {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    .plan-card {
-      background: var(--paper-card);
-      border: 1px solid #EFE5DB;
-      border-radius: 12px;
-      padding: 10px 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    .story-card {
+      background: var(--fairy-card);
+      border: 1.5px solid #F0E4D8;
+      border-radius: 14px;
+      padding: 10px 13px;
+      box-shadow: 0 2px 8px rgba(224, 180, 140, 0.08);
       position: relative;
     }
 
-    .plan-header {
+    .card-top {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: flex-start;
+      gap: 6px;
       margin-bottom: 4px;
     }
 
-    .plan-time {
-      font-size: 0.76rem;
-      font-weight: 800;
-      color: var(--orange-deep);
-      background: var(--orange-soft);
-      padding: 2px 6px;
-      border-radius: 6px;
-    }
-
-    .plan-name {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-left: 6px;
+    .card-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
       flex: 1;
     }
 
-    .plan-desc {
+    .badge-time {
+      font-size: 0.74rem;
+      font-weight: 800;
+      background: #FFF0E3;
+      color: var(--fairy-orange);
+      padding: 2px 7px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .card-headline {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .card-text {
       font-size: 0.78rem;
-      color: var(--ink-sub);
-      line-height: 1.45;
+      color: var(--ink-muted);
+      line-height: 1.48;
       margin-top: 4px;
     }
 
-    /* 宵夜可愛卡片 */
-    .snack-box {
-      margin-top: 14px;
-      background: var(--snack-bg);
-      border: 1.5px dashed #F5CE9F;
-      border-radius: 14px;
-      padding: 10px 12px;
+    /* Naver Map 專屬超連結按鈕 */
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: var(--naver-bg);
+      color: var(--naver-green);
+      border: 1px solid #B8E8C7;
+      border-radius: 12px;
+      padding: 2px 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .map-btn:hover, .map-btn:active {
+      background: var(--naver-green);
+      color: #ffffff;
     }
 
-    .snack-title {
-      font-size: 0.76rem;
+    /* 宵夜卡片 */
+    .snack-cottage {
+      margin-top: 14px;
+      background: #FFF9ED;
+      border: 2px dashed #FCD39B;
+      border-radius: 14px;
+      padding: 11px 13px;
+    }
+
+    .snack-headline {
+      font-size: 0.78rem;
       font-weight: 800;
-      color: #C8590D;
+      color: #D95F07;
       display: flex;
       align-items: center;
-      gap: 4px;
+      justify-content: space-between;
     }
 
-    .snack-desc {
+    .snack-body {
       font-size: 0.78rem;
       color: var(--ink);
       margin-top: 4px;
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     /* 頁尾 */
-    .page-footer {
+    .page-tail {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding-top: 10px;
-      font-size: 0.7rem;
-      color: #A3968B;
-      border-top: 1px dashed #EADECE;
+      font-size: 0.72rem;
+      color: #A39387;
+      border-top: 1px dashed var(--border-dash);
     }
 
-    /* 下方控制按鈕 */
-    .controls {
-      margin-top: 14px;
+    /* 控制列 */
+    .book-controls {
+      margin-top: 15px;
       display: flex;
       gap: 12px;
       align-items: center;
     }
 
-    .btn {
+    .action-btn {
       background: #FFFFFF;
-      color: var(--orange-deep);
-      border: 2px solid var(--orange-main);
+      color: var(--fairy-orange);
+      border: 2px solid var(--fairy-orange);
       padding: 8px 18px;
-      border-radius: 25px;
-      font-size: 0.82rem;
-      font-weight: 700;
+      border-radius: 30px;
+      font-size: 0.84rem;
+      font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 4px;
-      box-shadow: 0 4px 10px rgba(255, 138, 61, 0.18);
+      box-shadow: 0 4px 12px rgba(255, 126, 54, 0.2);
       transition: all 0.2s ease;
     }
-    .btn:active {
-      transform: scale(0.95);
-      background: var(--orange-soft);
+    .action-btn:active {
+      transform: scale(0.94);
+      background: #FFF3EB;
     }
-    .btn:disabled {
+    .action-btn:disabled {
       opacity: 0.35;
       pointer-events: none;
-      border-color: #D3C7BD;
-      color: #A89B90;
+      border-color: #D6C5B8;
+      color: #9C8F84;
       box-shadow: none;
     }
 
-    .sound-toggle {
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid #D8C7B9;
-      color: var(--ink-sub);
+    .sound-btn {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid #DFCEC1;
+      color: var(--ink-muted);
       font-size: 0.78rem;
-      font-weight: 600;
-      padding: 6px 12px;
+      font-weight: 700;
+      padding: 7px 12px;
       border-radius: 20px;
       cursor: pointer;
     }
@@ -337,281 +377,530 @@
 </head>
 <body>
 
-  <div class="book-wrapper" id="bookWrapper">
-    <div class="book" id="book">
+  <div class="storybook-wrapper" id="storyWrapper">
+    <div class="storybook" id="storybook">
 
       <!-- 封面 PAGE 0 -->
-      <div class="page cover" style="z-index: 8;">
+      <div class="page cover-page" style="z-index: 8;">
         <div>
-          <div class="cover-icon">🍊</div>
-          <h1 class="cover-title">濟州小橘本</h1>
-          <div class="cover-subtitle">JEJU 5D4N 漫遊手帳</div>
+          <div class="cover-badge">🍊 FAIRY TALE TRAVEL BOOK</div>
+          <div class="cover-illu">🍊✨</div>
+          <h1 class="cover-title">濟州柑橘童話手記</h1>
+          <p style="font-size:0.85rem; margin-top:4px; opacity:0.95; font-weight:600;">五天四夜的浪漫自駕巡遊</p>
         </div>
 
-        <div class="cover-stamp">
-          <div class="stamp-badge">✈️ 航班訂位資訊備忘</div><br/>
-          <strong>去程：</strong>2026/09/12 (六) 虎航 IT632<br/>
-          07:00 台北 ➔ 10:00 濟州<br/>
-          <strong>訂位代號：</strong><span style="color:var(--orange-deep); font-weight:800;">R3R7YY</span><br/>
-          <hr style="border:none; border-top:1px dashed #E0D5CA; margin:6px 0;"/>
-          <strong>回程：</strong>2026/09/16 (三) 虎航 IT655<br/>
-          10:30 濟州 ➔ 11:35 台北
+        <div class="cover-card">
+          <div class="flight-pill">✈️ 航班與訂位備忘</div><br/>
+          <strong>去程：</strong>2026/09/12 (六) 虎航 IT632 ｜ 07:00 台北 ➔ 10:00 濟州<br/>
+          <strong>代號：</strong><span style="color:var(--fairy-orange); font-weight:900; letter-spacing:0.05em;">R3R7YY</span><br/>
+          <hr style="border:none; border-top:1px dashed #F2DAC5; margin:6px 0;"/>
+          <strong>回程：</strong>2026/09/16 (三) 虎航 IT655 ｜ 10:30 濟州 ➔ 11:35 台北
         </div>
 
         <div>
-          <p style="font-size: 0.75rem; opacity: 0.9; margin-bottom: 4px;">2026/09/12 – 09/16 ｜ 甜蜜自駕出遊</p>
-          <p style="font-size: 0.7rem; opacity: 0.8;">（向左滑動或按下方「下一頁」翻開旅程）</p>
+          <p style="font-size: 0.75rem; opacity: 0.9; margin-bottom: 4px;">2026/09/12 – 09/16 ｜ 濟州島</p>
+          <p style="font-size: 0.7rem; opacity: 0.85;">（向左滑動或點擊「下一頁」翻開繪本）</p>
         </div>
       </div>
 
       <!-- DAY 1 頁面 (PAGE 1) -->
       <div class="page" style="z-index: 7;">
-        <div class="page-content">
-          <div class="day-badge">DAY 1 ｜ 09/12 (六)</div>
-          <h2 class="day-title">彩虹道路 ➔ 涯月拍貼 ➔ 981重力賽車 ➔ 神話度假村</h2>
-          <div class="hotel-pill">🏡 住宿：濟州神話世界 (JEJU SHINHWA WORLD)</div>
+        <div class="page-scroll">
+          <div class="chapter-tag">🍊 CHAPTER 01 ｜ 09/12 (六)</div>
+          <h2 class="chapter-header">彩虹道路 ➔ 涯月拍貼 ➔ 981重力賽車 ➔ 神話度假村</h2>
+          <div class="hotel-banner">
+            <span>🏡 住宿：濟州神話世界</span>
+            <a class="map-btn" href="https://map.naver.com/v5/search/%EC%A0%9C%EC%88%98%EC%8B%A0%ED%99%94%EC%9B%94%EB%93%9C" target="_blank">🧭 Naver</a>
+          </div>
 
-          <div class="schedule-stack">
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">10:00–11:00</span><span class="plan-name">抵達與取車</span></div>
-              <div class="plan-desc">降落濟州機場、通關入境、提領行李，搭接駁車至租車行辦妥手續取車。</div>
+          <div class="timeline-stack">
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">10:00–11:00</span>
+                  <span class="card-headline">抵達與取車</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%A0%9C%EC%88%98%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD" target="_blank">🧭 機場</a>
+              </div>
+              <div class="card-text">降落濟州機場、通關入境、提領行李，搭接駁車至租車行辦妥手續取車。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">11:00–11:30</span><span class="plan-name">道頭洞彩虹海岸道路</span></div>
-              <div class="plan-desc">彩色石墩拍照散步（白天採光佳，拍照最美）。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">11:00–11:30</span>
+                  <span class="card-headline">道頭洞彩虹海岸道路</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EB%8F%84%EB%91%90%EB%8F%99%EB%AC%B4%EC%82%AC%EA%B0%9C%ED%95%B4%EC%95%88%EB%8F%84%EB%A1%9C" target="_blank">🧭 Naver</a>
+              </div>
+              <div class="card-text">彩色石墩拍照散步（白天採光佳，拍照最美）。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">11:30–12:30</span><span class="plan-name">Haru Film 涯月店</span></div>
-              <div class="plan-desc">拍經典粉藍海景拍貼機、吃雲朵冰淇淋與打卡看海。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">11:30–12:30</span>
+                  <span class="card-headline">Haru Film 涯月店</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%ED%95%98%EB%A3%A8%ED%95%84%EB%A6%84%20%EC%95%A0%EC%9B%94" target="_blank">🧭 Naver</a>
+              </div>
+              <div class="card-text">拍經典粉藍海景拍貼機、吃雲朵冰淇淋與打卡看海。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">12:30–13:45</span><span class="plan-name">午餐享用</span></div>
-              <div class="plan-desc">涯月周邊享用黑豬肉料理或鮮甜海膽蓋飯。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">12:30–13:45</span>
+                  <span class="card-headline">午餐享用</span>
+                </div>
+              </div>
+              <div class="card-text">涯月周邊享用黑豬肉料理或鮮甜海膽蓋飯。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">13:45–14:15</span><span class="plan-name">海邊咖啡＋車程緩衝</span></div>
-              <div class="plan-desc">外帶海邊咖啡看海，開車往 981 移動（預留午後塞車緩衝）。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">13:45–14:15</span>
+                  <span class="card-headline">海邊咖啡＋車程緩衝</span>
+                </div>
+              </div>
+              <div class="card-text">外帶海邊咖啡看海，開車往 981 移動（預留午後塞車緩衝）。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">14:15–16:15</span><span class="plan-name">9.81 Park 重力賽車公園</span></div>
-              <div class="plan-desc">無動力競速賽車體驗、室內科技與運動娛樂設施。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">14:15–16:15</span>
+                  <span class="card-headline">9.81 Park 重力賽車公園</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/9.81%ED%8C%8C%ED%81%AC" target="_blank">🧭 Naver</a>
+              </div>
+              <div class="card-text">無動力競速賽車體驗、室內科技與運動娛樂設施。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">16:15–16:45</span><span class="plan-name">車程移動</span></div>
-              <div class="plan-desc">往西南神話世界前進。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">16:15–16:45</span>
+                  <span class="card-headline">車程移動</span>
+                </div>
+              </div>
+              <div class="card-text">往西南神話世界前進。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">16:45–19:30</span><span class="plan-name">神話度假村設施暢玩</span></div>
-              <div class="plan-desc">辦理入住 Check-in 放行李，使用主題樂園一人 3 項券，並前往神話水上樂園玩水。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">16:45–19:30</span>
+                  <span class="card-headline">神話度假村設施暢玩</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%8B%A0%ED%99%94%ED%85%8C%EB%A7%88%ED%8C%8C%ED%81%AC" target="_blank">🧭 樂園</a>
+              </div>
+              <div class="card-text">辦理入住 Check-in 放行李，使用主題樂園一人 3 項券，並前往神話水上樂園玩水。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">19:30–21:00</span><span class="plan-name">晚餐推薦</span></div>
-              <div class="plan-desc">濟州整尾烤/燉白帶魚名店（自由參加）。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">19:30–21:00</span>
+                  <span class="card-headline">晚餐推薦</span>
+                </div>
+              </div>
+              <div class="card-text">濟州整尾烤/燉白帶魚名店（自由參加）。</div>
             </div>
           </div>
 
-          <div class="snack-box">
-            <div class="snack-title">🍗 宵夜快查：BHC 炸雞 (21:30 之後)</div>
-            <div class="snack-desc">招牌芝司脆皮（뿌링클）或原味酥脆炸雞配生啤酒（度假村商圈外帶或外送）。</div>
+          <div class="snack-cottage">
+            <div class="snack-headline">
+              <span>🍗 宵夜快查：BHC 炸雞 (21:30 之後)</span>
+              <a class="map-btn" href="https://map.naver.com/v5/search/BHC%EC%B9%98%ED%82%A8%20%EC%A0%9C%EC%88%98%EC%8B%A0%ED%99%94%EC%9B%94%EB%93%9C" target="_blank">🧭 門市</a>
+            </div>
+            <div class="snack-body">招牌芝司脆皮（뿌링클）或原味酥脆炸雞配生啤酒（度假村商圈外帶或外送）。</div>
           </div>
         </div>
-        <div class="page-footer"><span>9/12 旅程記錄</span><span>🍊 Page 1</span></div>
+        <div class="page-tail"><span>9/12 奇幻啟程</span><span>🍊 第 1 頁</span></div>
       </div>
 
       <!-- DAY 2 頁面 (PAGE 2) -->
       <div class="page" style="z-index: 6;">
-        <div class="page-content">
-          <div class="day-badge">DAY 2 ｜ 09/13 (日)</div>
-          <h2 class="day-title">西歸浦自然奇景 ➔ 親子休閒 ➔ 綠茶博物館／水樂園</h2>
-          <div class="hotel-pill">🏡 住宿：濟州神話世界 (JEJU SHINHWA WORLD)</div>
+        <div class="page-scroll">
+          <div class="chapter-tag">🍊 CHAPTER 02 ｜ 09/13 (日)</div>
+          <h2 class="chapter-header">西歸浦自然奇景 ➔ 親子休閒 ➔ 綠茶博物館／水樂園</h2>
+          <div class="hotel-banner">
+            <span>🏡 住宿：濟州神話世界</span>
+            <a class="map-btn" href="https://map.naver.com/v5/search/%EC%A0%9C%EC%88%98%EC%8B%A0%ED%99%94%EC%9B%94%EB%93%9C" target="_blank">🧭 Naver</a>
+          </div>
 
-          <div class="schedule-stack">
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">08:30–09:30</span><span class="plan-name">晨間早餐</span></div>
-              <div class="plan-desc">飯店內用或周邊自理。</div>
+          <div class="timeline-stack">
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">08:30–09:30</span>
+                  <span class="card-headline">早餐</span>
+                </div>
+              </div>
+              <div class="card-text">飯店內用或周邊自理。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">10:00–12:00</span><span class="plan-name">Arte Kids Park</span></div>
-              <div class="plan-desc">西南部超大型沉浸式科技互動樂園。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">10:00–12:00</span>
+                  <span class="card-headline">Arte Kids Park</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%95%84%EB%A5%B4%EB%96%BC%ED%82%A4%EC%A6%88%ED%8C%8C%ED%81%AC%20%EC%A0%9C%EC%88%98" target="_blank">🧭 Naver</a>
+              </div>
+              <div class="card-text">西南部超大型沉浸式科技互動樂園。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">12:30–14:00</span><span class="plan-name">午餐享用</span></div>
-              <div class="plan-desc">濟州烤鰻魚料理。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">12:30–14:00</span>
+                  <span class="card-headline">午餐享用</span>
+                </div>
+              </div>
+              <div class="card-text">濟州烤鰻魚料理。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">14:00–16:30</span><span class="plan-name">西歸浦順遊（彈性調配）</span></div>
-              <div class="plan-desc">
-                • 大浦海岸柱狀節理帶（壯觀火山玄武岩海景）<br/>
-                • 正房瀑布（直落入海的天然瀑布）<br/>
-                • 西歸浦每日偶來市場（必吃打卡：兔子飯捲、黑豬肉餃子、老奶奶橘子麻糬）
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">14:00–16:30</span>
+                  <span class="card-headline">西歸浦順遊（彈性調配）</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%84%9C%EA%B7%80%ED%8F%AC%EB%A7%A4%EC%9D%BC%EC%98%AC%EB%A0%88%EC%8B%9C%EC%9E%A5" target="_blank">🧭 偶來市場</a>
+              </div>
+              <div class="card-text">
+                • <a style="color:var(--fairy-orange); text-decoration:none; font-weight:700;" href="https://map.naver.com/v5/search/%EC%A3%BC%EC%83%81%EC%A0%88%EB%A6%AC%EB%8C%80" target="_blank">大浦海岸柱狀節理帶 ↗</a>（壯觀火山玄武岩海景）<br/>
+                • <a style="color:var(--fairy-orange); text-decoration:none; font-weight:700;" href="https://map.naver.com/v5/search/%EC%A0%95%EB% Bang%ED%8F%AD%ED%8F%AC" target="_blank">正房瀑布 ↗</a>（直落入海的天然瀑布）<br/>
+                • <strong>西歸浦每日偶來市場</strong>（必吃：兔子飯捲、黑豬肉餃子、老奶奶橘子麻糬）
               </div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">16:30–18:30</span><span class="plan-name">午後休閒（二擇一）</span></div>
-              <div class="plan-desc">
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">16:30–18:30</span>
+                  <span class="card-headline">午後休閒</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%98%A4%EC%84%A4%EB%A1%9D%ED%8B%B0%EB%AE%A4%EC%A7%80%EC%97%84" target="_blank">🧭 綠茶館</a>
+              </div>
+              <div class="card-text">
                 <strong>選擇 A：</strong>前往雪綠茶博物館（Innisfree 綠茶冰淇淋、甜點，車程僅 10 分鐘）。<br/>
                 <strong>選擇 B：</strong>返回度假村水上樂園一路暢玩到打烊。
               </div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">19:00–21:00</span><span class="plan-name">晚餐盛宴</span></div>
-              <div class="plan-desc">濟州頂級韓牛燒肉。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">19:00–21:00</span>
+                  <span class="card-headline">晚餐</span>
+                </div>
+              </div>
+              <div class="card-text">濟州頂級韓牛燒肉。</div>
             </div>
           </div>
 
-          <div class="snack-box">
-            <div class="snack-title">🍜 宵夜快查：韓式炸醬麵 (21:30 之後)</div>
-            <div class="snack-desc">外送或外帶，推薦搭配一份韓式酸甜酥脆糖醋肉。</div>
+          <div class="snack-cottage">
+            <div class="snack-headline">
+              <span>🍜 宵夜快查：韓式炸醬麵 (21:30 之後)</span>
+            </div>
+            <div class="snack-body">外送或外帶，推薦搭配一份韓式酸甜酥脆糖醋肉。</div>
           </div>
         </div>
-        <div class="page-footer"><span>9/13 旅程記錄</span><span>🍊 Page 2</span></div>
+        <div class="page-tail"><span>9/13 綠意奇觀</span><span>🍊 第 2 頁</span></div>
       </div>
 
       <!-- DAY 3 頁面 (PAGE 3) -->
       <div class="page" style="z-index: 5;">
-        <div class="page-content">
-          <div class="day-badge">DAY 3 ｜ 09/14 (一)</div>
-          <h2 class="day-title">換飯店 ➔ 東部海景 ➔ 濟州市區逛街採買</h2>
-          <div class="hotel-pill">🏡 住宿：Hotel RegentMarine The Blue（麗晶濱海藍色酒店）</div>
+        <div class="page-scroll">
+          <div class="chapter-tag">🍊 CHAPTER 03 ｜ 09/14 (一)</div>
+          <h2 class="chapter-header">換飯店 ➔ 東部海景 ➔ 濟州市區逛街採買</h2>
+          <div class="hotel-banner">
+            <span>🏡 住宿：Hotel RegentMarine The Blue</span>
+            <a class="map-btn" href="https://map.naver.com/v5/search/%ED%98%B8%ED%85%94%EB%A6%AC%EC%A0%A0%ED%8A%B8%EB%A7%88%EB%A6%B0%EB%8D%94%EB%B8%94%EB%A3%A8" target="_blank">🧭 Naver</a>
+          </div>
 
-          <div class="schedule-stack">
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">09:30–10:30</span><span class="plan-name">睡到飽自然醒</span></div>
-              <div class="plan-desc">悠閒整理行李、辦理退房，開車往東北海岸出發。</div>
+          <div class="timeline-stack">
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">09:30–10:30</span>
+                  <span class="card-headline">睡到飽自然醒</span>
+                </div>
+              </div>
+              <div class="card-text">悠閒整理行李、辦理退房，開車往東北海岸出發。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">11:00–12:30</span><span class="plan-name">早午餐享用</span></div>
-              <div class="plan-desc">濟州在地濃郁鮑魚粥。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">11:00–12:30</span>
+                  <span class="card-headline">早午餐</span>
+                </div>
+              </div>
+              <div class="card-text">濟州在地濃郁鮑魚粥。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">13:00–15:30</span><span class="plan-name">東部海灘悠閒漫遊</span></div>
-              <div class="plan-desc">月汀里海灘 或 咸德海水浴場（藍綠色漸層果凍海、海邊咖啡廳）。</div>
-            </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">15:30–16:45</span><span class="plan-name">細花排骨（下午點心/正餐）</span></div>
-              <div class="plan-desc">品嚐濃郁招牌燉牛排骨。</div>
-            </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">16:45–17:45</span><span class="plan-name">車程回市區</span></div>
-              <div class="plan-desc">抵達 Hotel RegentMarine The Blue 辦理 Check-in。</div>
-            </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">18:00–20:30</span><span class="plan-name">市區購物巡禮</span></div>
-              <div class="plan-desc">
-                • 步行可達：東門市場、七星街商圈。<br/>
-                • 開車可達：樂天超市（採買伴手禮）、新羅/樂天免稅店、蓮洞步行街。
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">13:00–15:30</span>
+                  <span class="card-headline">東部海灘悠閒漫遊</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%9B%94%EC%A0%95%EB%A6%AC%ED%95%B4%EB%B3%80" target="_blank">🧭 月汀里</a>
+              </div>
+              <div class="card-text">
+                • <a style="color:var(--fairy-orange); text-decoration:none; font-weight:700;" href="https://map.naver.com/v5/search/%EC%9B%94%EC%A0%95%EB%A6%AC%ED%95%B4%EB%B3%80" target="_blank">月汀里海灘 ↗</a> 或 <a style="color:var(--fairy-orange); text-decoration:none; font-weight:700;" href="https://map.naver.com/v5/search/%ED%95%A8%EB%8D%95%ED%95%B4%EC%88%98%EC%9A%95%EC%9E%A5" target="_blank">咸德海水浴場 ↗</a>（漸層果凍海、海邊咖啡廳）。
               </div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">20:30–21:30</span><span class="plan-name">晚餐時光</span></div>
-              <div class="plan-desc">飯店沙拉輕食（或自由選擇：市區熱門烤牛腸）。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">15:30–16:45</span>
+                  <span class="card-headline">下午點心/正餐</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%84%B8%ED%99%94%EA%B0%88%EB%B9%84" target="_blank">🧭 細花排骨</a>
+              </div>
+              <div class="card-text">細花排骨（濃郁招牌燉牛排骨）。</div>
+            </div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">16:45–17:45</span>
+                  <span class="card-headline">車程回市區</span>
+                </div>
+              </div>
+              <div class="card-text">抵達 Hotel RegentMarine The Blue 辦理 Check-in。</div>
+            </div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">18:00–20:30</span>
+                  <span class="card-headline">市區購物巡禮</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EB%8F%99%EB%AC%B8%EC%9E%AC%EB%9E%98%EC%8B%9C%EC%9E%A5" target="_blank">🧭 東門市場</a>
+              </div>
+              <div class="card-text">
+                • 步行可達：東門市場、七星街商圈。<br/>
+                • 開車可達：<a style="color:var(--fairy-orange); text-decoration:none; font-weight:700;" href="https://map.naver.com/v5/search/%EB%A1%AF%EB%8D%B0%EB%A7%88%ED%8A%B8%20%EC%A0%9C%EC%88%98%EC%A0%90" target="_blank">樂天超市濟州店 ↗</a>、新羅/樂天免稅店、蓮洞步行街。
+              </div>
+            </div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">20:30–21:30</span>
+                  <span class="card-headline">晚餐</span>
+                </div>
+              </div>
+              <div class="card-text">飯店沙拉輕食（或自由選擇：市區熱門烤牛腸）。</div>
             </div>
           </div>
 
-          <div class="snack-box">
-            <div class="snack-title">🥢 宵夜快查：Baro 豬腳 ＋ 獵奇年糕 (22:00 之後)</div>
-            <div class="snack-desc">原味/辣味半半豬腳（바르고 족발），佐獵奇辣炒年糕解膩又過癮。</div>
+          <div class="snack-cottage">
+            <div class="snack-headline">
+              <span>🥢 宵夜快查：Baro 豬腳 ＋ 獵奇年糕 (22:00 之後)</span>
+              <a class="map-btn" href="https://map.naver.com/v5/search/%EB%B0%94%EB%A5%B4%EA%B3%A0%EC%A1%B1%EB%B0%9C%20%EC%A0%9C%EC%88%98" target="_blank">🧭 豬腳</a>
+            </div>
+            <div class="snack-body">原味/辣味半半豬腳（바르고 족발），佐獵奇辣炒年糕解膩又過癮。</div>
           </div>
         </div>
-        <div class="page-footer"><span>9/14 旅程記錄</span><span>🍊 Page 3</span></div>
+        <div class="page-tail"><span>9/14 碧海市區</span><span>🍊 第 3 頁</span></div>
       </div>
 
       <!-- DAY 4 頁面 (PAGE 4) -->
       <div class="page" style="z-index: 4;">
-        <div class="page-content">
-          <div class="day-badge">DAY 4 ｜ 09/15 (二)</div>
-          <h2 class="day-title">牛島跳島 ➔ 城山日出峰 ➔ 倫敦貝果 ➔ 市區最後採購</h2>
-          <div class="hotel-pill">🏡 住宿：Hotel RegentMarine The Blue（麗晶濱海藍色酒店）</div>
+        <div class="page-scroll">
+          <div class="chapter-tag">🍊 CHAPTER 04 ｜ 09/15 (二)</div>
+          <h2 class="chapter-header">牛島跳島 ➔ 城山日出峰 ➔ 倫敦貝果 ➔ 市區最後採購</h2>
+          <div class="hotel-banner">
+            <span>🏡 住宿：Hotel RegentMarine The Blue</span>
+            <a class="map-btn" href="https://map.naver.com/v5/search/%ED%98%B8%ED%85%94%EB%A6%AC%EC%A0%A0%ED%8A%B8%EB%A7%88%EB%A6%B0%EB%8D%94%EB%B8%94%EB%A3%A8" target="_blank">🧭 Naver</a>
+          </div>
 
-          <div class="schedule-stack">
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">08:00–09:00</span><span class="plan-name">暖心早餐</span></div>
-              <div class="plan-desc">東門市場或市區在地豬肉湯麵。</div>
+          <div class="timeline-stack">
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">08:00–09:00</span>
+                  <span class="card-headline">早餐</span>
+                </div>
+              </div>
+              <div class="card-text">東門市場或市區在地豬肉湯麵。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">09:00–10:00</span><span class="plan-name">開車前往城山港</span></div>
-              <div class="plan-desc">填寫乘船申告書、購票登船前往牛島。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">09:00–10:00</span>
+                  <span class="card-headline">開車前往城山港</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%84%B1%EC%82%B0%ED%8F%AC%ED%95%AD%EC%A2%85%ED%95%A9%EC%97%AC%EA%B0%9D%EC%84%A0%ED%84%B0%EB%AF%B8%EB%84%90" target="_blank">🧭 城山港</a>
+              </div>
+              <div class="card-text">填寫乘船申告書、購票登船前往牛島。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">10:30–12:30</span><span class="plan-name">牛島跳島遊</span></div>
-              <div class="plan-desc">租電動車環島、西濱白沙海灘打卡、品嚐花生冰淇淋與海景咖啡。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">10:30–12:30</span>
+                  <span class="card-headline">牛島跳島遊</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%9A%B0%EB%8F%84%EC%82%B0%ED%98%B8%EC%82%AC%ED%95%B4%EB%B3%80" target="_blank">🧭 白沙灘</a>
+              </div>
+              <div class="card-text">租電動車環島、西濱白沙海灘打卡、品嚐花生冰淇淋與海景咖啡。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">12:30–13:30</span><span class="plan-name">午餐享用</span></div>
-              <div class="plan-desc">享用濟州在地濃郁豬肉湯。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">12:30–13:30</span>
+                  <span class="card-headline">午餐</span>
+                </div>
+              </div>
+              <div class="card-text">享用濟州在地濃郁豬肉湯。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">14:00–15:15</span><span class="plan-name">城山日出峰</span></div>
-              <div class="plan-desc">搭船返回本島，城山日出峰海邊步道散步、拍照賞景。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">14:00–15:15</span>
+                  <span class="card-headline">城山日出峰</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%84%B1%EC%82%B0%EC%9D%BC%EC%B6%9C%EB%B4%89" target="_blank">🧭 Naver</a>
+              </div>
+              <div class="card-text">搭船返回本島，城山日出峰海邊步道散步、拍照賞景。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">15:30–16:45</span><span class="plan-name">London Bagel Museum Jeju</span></div>
-              <div class="plan-desc">順路經過舊左邑海岸線，品嚐招牌手工貝果、特色奶油乳酪與外帶海景咖啡。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">15:30–16:45</span>
+                  <span class="card-headline">London Bagel Museum Jeju</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EB%9F%B0%EB%8D%98%EB%B2%A0%EC%9D%B4%EA%B8%80%EB%AE%A4%EC%A7%80%EC%97%84%20%EC%A0%9C%EC%88%98" target="_blank">🧭 倫敦貝果</a>
+              </div>
+              <div class="card-text">順路經過舊左邑海岸線，品嚐招牌手工貝果、特色奶油乳酪與外帶海景咖啡。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">17:30–19:30</span><span class="plan-name">返回市區最後補貨</span></div>
-              <div class="plan-desc">七星街、東門市場或樂天超市/免稅店最後採買。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">17:30–19:30</span>
+                  <span class="card-headline">返回市區最後補貨</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%A0%9C%EC%88%98%EC%B9%A0%EC%84%B1%EB%A1%9C%EC%83%81%EC%A0%90%EA%B0%80" target="_blank">🧭 七星街</a>
+              </div>
+              <div class="card-text">七星街、東門市場或樂天超市/免稅店最後採買。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">19:30–21:00</span><span class="plan-name">晚餐盛宴</span></div>
-              <div class="plan-desc">豚笑（熟成黑豬肉燒肉）或飯店周邊海鮮/烤肉店。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">19:30–21:00</span>
+                  <span class="card-headline">晚餐</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EB%8F%88%EC%86%8C%20%EC%A0%9C%EC%88%98" target="_blank">🧭 豚笑</a>
+              </div>
+              <div class="card-text">豚笑（熟成黑豬肉燒肉）或飯店周邊海鮮/烤肉店。</div>
             </div>
           </div>
 
-          <div class="snack-box">
-            <div class="snack-title">🍗 宵夜快查：韓式香脆炸雞 (21:30 之後)</div>
-            <div class="snack-desc">橋村炸雞（蜂蜜／香辣雙拼）或在地口碑脆皮炸雞店。</div>
+          <div class="snack-cottage">
+            <div class="snack-headline">
+              <span>🍗 宵夜快查：韓式香脆炸雞 (21:30 之後)</span>
+              <a class="map-btn" href="https://map.naver.com/v5/search/%EA%B5%90%EC% incompatibility%EC%B9%98%ED%82%A8%20%ED%83%91%EB%8F%99%EC%A0%90" target="_blank">🧭 橋村</a>
+            </div>
+            <div class="snack-body">橋村炸雞（蜂蜜／香辣雙拼）或在地口碑脆皮炸雞店。</div>
           </div>
         </div>
-        <div class="page-footer"><span>9/15 旅程記錄</span><span>🍊 Page 4</span></div>
+        <div class="page-tail"><span>9/15 島嶼漫旅</span><span>🍊 第 4 頁</span></div>
       </div>
 
       <!-- DAY 5 頁面 (PAGE 5) -->
       <div class="page" style="z-index: 3;">
-        <div class="page-content">
-          <div class="day-badge">DAY 5 ｜ 09/16 (三)</div>
-          <h2 class="day-title">早餐 ➔ 加油還車 ➔ 機場返台</h2>
+        <div class="page-scroll">
+          <div class="chapter-tag">🍊 CHAPTER 05 ｜ 09/16 (三)</div>
+          <h2 class="chapter-header">早餐 ➔ 加油還車 ➔ 機場返台</h2>
 
-          <div class="schedule-stack">
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">07:00–07:45</span><span class="plan-name">退房與早餐</span></div>
-              <div class="plan-desc">辦理退房，前往市區購買 Egg Drop 人氣吐司（外帶車上享用）。</div>
+          <div class="timeline-stack">
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">07:00–07:45</span>
+                  <span class="card-headline">退房與早餐</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%97%90%EA%B7%B8%EB%93%9C%EB%9E%8D%20%EC%A0%9C%EC%88%98" target="_blank">🧭 Egg Drop</a>
+              </div>
+              <div class="card-text">辦理退房，前往市區購買 Egg Drop 人氣吐司（外帶車上享用）。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">07:45–08:15</span><span class="plan-name">加油與還車</span></div>
-              <div class="plan-desc">前往加油站將油箱加滿，抵達租車公司驗車還車。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">07:45–08:15</span>
+                  <span class="card-headline">加油與還車</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%A0%9C%EC%88%98%EA%B3%B5%ED%95%AD%20%EC%A3%BC%EC%9C%A0%EC%86%8C" target="_blank">🧭 機場加油站</a>
+              </div>
+              <div class="card-text">前往加油站將油箱加滿，抵達租車公司驗車還車。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">08:15–08:35</span><span class="plan-name">接駁接送</span></div>
-              <div class="plan-desc">搭乘租車公司免費接駁車抵達濟州國際機場。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">08:15–08:35</span>
+                  <span class="card-headline">接駁接送</span>
+                </div>
+              </div>
+              <div class="card-text">搭乘租車公司免費接駁車抵達濟州國際機場。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">08:35–10:30</span><span class="plan-name">報到出境</span></div>
-              <div class="plan-desc">虎航櫃檯託運行李、退稅辦理、通關安檢、最後免稅提貨與登機。</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">08:35–10:30</span>
+                  <span class="card-headline">報到出境</span>
+                </div>
+                <a class="map-btn" href="https://map.naver.com/v5/search/%EC%A0%9C%EC%88%98%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD" target="_blank">🧭 機場</a>
+              </div>
+              <div class="card-text">虎航櫃檯託運行李、退稅辦理、通關安檢、最後免稅提貨與登機。</div>
             </div>
-            <div class="plan-card">
-              <div class="plan-header"><span class="plan-time">10:30–11:35</span><span class="plan-name">返抵台灣</span></div>
-              <div class="plan-desc">搭乘台灣虎航 IT655 返抵台北，帶著滿滿戰利品與回憶結束美好旅程！🍊</div>
+
+            <div class="story-card">
+              <div class="card-top">
+                <div class="card-meta">
+                  <span class="badge-time">10:30–11:35</span>
+                  <span class="card-headline">返抵台灣</span>
+                </div>
+              </div>
+              <div class="card-text">搭乘台灣虎航 IT655 返抵台灣，結束旅程。</div>
             </div>
           </div>
 
-          <div style="margin-top: 22px; padding: 14px; background: var(--orange-soft); border-radius: 12px; text-align: center; border: 1px dashed var(--orange-border);">
-            <div style="font-size: 1.5rem; margin-bottom: 4px;">🍊✈️🇹🇼</div>
-            <div style="font-size: 0.85rem; font-weight: 800; color: var(--orange-deep);">濟州五日遊圓滿達成！</div>
-            <div style="font-size: 0.74rem; color: var(--ink-sub); margin-top: 4px;">平安歸賦・滿載而歸</div>
+          <div style="margin-top: 22px; padding: 16px; background: #FFF3E6; border-radius: 16px; text-align: center; border: 2px dashed #FFBE8A;">
+            <div style="font-size: 2rem; margin-bottom: 4px;">🍊 ✈️ 🏠</div>
+            <div style="font-size: 0.95rem; font-weight: 900; color: var(--fairy-orange);">濟州童話冒險・圓滿落幕！</div>
+            <div style="font-size: 0.76rem; color: var(--ink-muted); margin-top: 4px;">願美好回憶如柑橘般甜蜜恆久</div>
           </div>
         </div>
-        <div class="page-footer"><span>9/16 返程日</span><span>🍊 Page 5 (完)</span></div>
+        <div class="page-tail"><span>9/16 平安返台</span><span>🍊 第 5 頁 (完)</span></div>
       </div>
 
     </div>
   </div>
 
-  <!-- 下方翻頁控制器 -->
-  <div class="controls">
-    <button class="btn" id="prevBtn" onclick="prevPage()" disabled>‹ 前一頁</button>
-    <button class="sound-toggle" id="soundBtn" onclick="toggleSound()">🔊 翻書聲: 開</button>
-    <button class="btn" id="nextBtn" onclick="nextPage()">下一頁 ›</button>
+  <!-- 下方翻頁與音效控制 -->
+  <div class="book-controls">
+    <button class="action-btn" id="prevBtn" onclick="prevPage()" disabled>‹ 上一頁</button>
+    <button class="sound-btn" id="soundBtn" onclick="toggleSound()">🔊 翻書聲: 開</button>
+    <button class="action-btn" id="nextBtn" onclick="nextPage()">下一頁 ›</button>
   </div>
 
   <script>
@@ -620,7 +909,7 @@
     const totalPages = pages.length;
     let soundEnabled = true;
 
-    // Web Audio API 即時合成物理紙張微風擦撞聲
+    // Web Audio API 合成真實翻書紙張微風聲
     let audioCtx = null;
 
     function playPageFlipSound() {
@@ -633,7 +922,7 @@
           audioCtx.resume();
         }
 
-        const bufferSize = audioCtx.sampleRate * 0.11; 
+        const bufferSize = audioCtx.sampleRate * 0.12; 
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
 
@@ -647,11 +936,11 @@
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass';
         filter.frequency.setValueAtTime(750, audioCtx.currentTime);
-        filter.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.11);
+        filter.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.12);
 
         const gainNode = audioCtx.createGain();
-        gainNode.gain.setValueAtTime(0.65, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.11);
+        gainNode.gain.setValueAtTime(0.7, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
 
         noise.connect(filter);
         filter.connect(gainNode);
@@ -693,7 +982,7 @@
 
     // 觸控滑動翻頁 (Touch Swipe)
     let startX = 0;
-    const wrapper = document.getElementById('bookWrapper');
+    const wrapper = document.getElementById('storyWrapper');
 
     wrapper.addEventListener('touchstart', (e) => {
       startX = e.touches[0].clientX;
